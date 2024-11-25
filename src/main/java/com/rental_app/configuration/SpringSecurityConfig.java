@@ -20,7 +20,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable() // Désactiver CSRF pour les tests
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/rentals/**").permitAll(); // Pour tester mes routes.
+                    auth.requestMatchers("/api/**").permitAll(); // Pour tester mes routes.
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(Customizer.withDefaults())
