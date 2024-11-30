@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Exclure les dossiers inutiles pour cette étape
+src/main/java/com/rental_app/controller/*
+src/main/java/com/rental_app/model/*
+src/main/java/com/rental_app/repository/*
+src/main/java/com/rental_app/service/*
