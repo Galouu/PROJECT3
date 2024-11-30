@@ -1,13 +1,14 @@
 package com.rental_app.service;
 
-import com.rental_app.dto.UserDTO;
-import com.rental_app.model.User;
-import com.rental_app.repository.UserRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.rental_app.dto.UserDTO;
+import com.rental_app.model.User;
+import com.rental_app.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -46,14 +47,4 @@ public class UserService {
               user.getUpdatedAt()
       );
   }
-
-    private User convertToEntity(UserDTO userDTO) {
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setEmail(userDTO.getEmail());
-        user.setName(userDTO.getName());
-        user.setCreatedAt(userDTO.getCreatedAt());
-        user.setUpdatedAt(userDTO.getUpdatedAt());
-        return user;
-    }
 }

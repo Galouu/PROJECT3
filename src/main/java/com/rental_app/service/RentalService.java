@@ -1,15 +1,16 @@
 package com.rental_app.service;
 
-import com.rental_app.dto.RentalDTO;
-import com.rental_app.model.Rental;
-import com.rental_app.repository.RentalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.rental_app.dto.RentalDTO;
+import com.rental_app.model.Rental;
+import com.rental_app.repository.RentalRepository;
 
 @Service
 public class RentalService {
@@ -17,19 +18,16 @@ public class RentalService {
     @Autowired
     private RentalRepository rentalRepository;
 
-    // Récupérer tous les rentals sous forme de DTO
     public List<RentalDTO> getAllRentals() {
         return rentalRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    // Récupérer un rental par ID sous forme de DTO
     public Optional<RentalDTO> getRentalById(Long id) {
         return rentalRepository.findById(id).map(this::convertToDTO);
     }
 
-    // Créer un rental depuis un DTO
     public RentalDTO createRental(RentalDTO rentalDTO) {
         Rental rental = convertToEntity(rentalDTO);
         rental.setCreatedAt(LocalDateTime.now());
@@ -38,7 +36,6 @@ public class RentalService {
         return convertToDTO(savedRental);
     }
 
-    // Mettre à jour un rental existant
     public Optional<RentalDTO> updateRental(Long id, RentalDTO rentalDTO) {
         return rentalRepository.findById(id).map(existingRental -> {
             existingRental.setName(rentalDTO.getName());
@@ -52,12 +49,10 @@ public class RentalService {
         });
     }
 
-    // Supprimer un rental
     public void deleteRental(Long id) {
         rentalRepository.deleteById(id);
     }
 
-    // Convertir une entité Rental en DTO
     private RentalDTO convertToDTO(Rental rental) {
         return new RentalDTO(
                 rental.getId(),
@@ -72,7 +67,6 @@ public class RentalService {
         );
     }
 
-    // Convertir un DTO en entité Rental
     private Rental convertToEntity(RentalDTO rentalDTO) {
         Rental rental = new Rental();
         rental.setId(rentalDTO.getId());

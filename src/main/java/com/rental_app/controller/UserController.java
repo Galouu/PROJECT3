@@ -1,18 +1,25 @@
 package com.rental_app.controller;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.rental_app.dto.UserDTO;
 import com.rental_app.model.User;
 import com.rental_app.service.UserService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -47,4 +54,21 @@ public class UserController {
         }
         return ResponseEntity.ok("Connexion réussie");
     }
+
+    @Operation(summary = "Obtenir les informations de l'utilisateur actuel", description = "Cette route retourne les informations de l'utilisateur actuellement authentifié.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Informations récupérées avec succès",
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))}),
+        @ApiResponse(responseCode = "401", description = "Non authentifié")
+    })
+@GetMapping("/me")
+public ResponseEntity<UserDTO> getCurrentUser() {
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<UserDTO> userOptional = userService.findByEmail(email);
+    if (userOptional.isEmpty()) {
+        return ResponseEntity.status(401).build();
+    }
+    return ResponseEntity.ok(userOptional.get());
+}
+
 }
