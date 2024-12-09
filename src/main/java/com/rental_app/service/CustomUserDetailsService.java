@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.rental_app.model.User;
 import com.rental_app.repository.UserRepository;
 
+// Utilisé pour charger les utilisateurs à partir de la base de données.
+// Vérifie si les identifiants fournis correspondent à ceux en base.
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

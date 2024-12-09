@@ -21,6 +21,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+// Rôle : Définit les endpoints accessibles via HTTP.
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

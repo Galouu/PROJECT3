@@ -10,6 +10,8 @@ import com.rental_app.dto.UserDTO;
 import com.rental_app.model.User;
 import com.rental_app.repository.UserRepository;
 
+// Rôle : Implémente la logique métier pour gérer les utilisateurs.
+
 @Service
 public class UserService {
 
@@ -32,6 +34,8 @@ public class UserService {
     public Optional<UserDTO> findByEmail(String email) {
         return userRepository.findByEmail(email).map(this::convertToDTO);
     }
+
+//  Vérifie qu'un mot de passe brut correspond à son équivalent haché
 
     public boolean checkPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);

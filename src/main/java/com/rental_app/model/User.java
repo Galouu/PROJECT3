@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Rôle : Représente les utilisateurs stockés en base de données.
+
 @Entity
 @Table(name = "USERS")
 public class User {

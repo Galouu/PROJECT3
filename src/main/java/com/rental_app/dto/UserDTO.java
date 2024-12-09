@@ -2,6 +2,8 @@ package com.rental_app.dto;
 
 import java.time.LocalDateTime;
 
+// Rôle : Transmet les données utilisateur entre les différentes couches sans exposer directement l'entité User.
+
 public class UserDTO {
     private Long id;
     private String email;

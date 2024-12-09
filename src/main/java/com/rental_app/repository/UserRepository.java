@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.rental_app.model.User;
 
+// Rôle : Gère l'accès aux données en utilisant Spring Data JPA.
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
