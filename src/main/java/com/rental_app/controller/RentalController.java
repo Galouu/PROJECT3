@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -77,5 +78,15 @@ public class RentalController {
     public ResponseEntity<Void> deleteRental(@PathVariable Long id) {
         rentalService.deleteRental(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/upload-picture")
+    public ResponseEntity<String> uploadPicture(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+    try {
+        rentalService.savePicture(id, file);
+        return ResponseEntity.ok("Picture uploaded successfully!");
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body("Error uploading picture: " + e.getMessage());
+    }
     }
 }
